@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.AttrGroup;
-import com.cloud.mall.product.mapper.AttrGroupMapper;
-import com.cloud.mall.product.service.IAttrGroupService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * 属性分组 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupMapper, AttrGroup> implements IAttrGroupService {
+import com.cloud.mall.product.dao.AttrGroupDao;
+import com.cloud.mall.product.entity.AttrGroupEntity;
+import com.cloud.mall.product.service.AttrGroupService;
+
+
+@Service("attrGroupService")
+public class AttrGroupServiceImpl extends ServiceImpl<AttrGroupDao, AttrGroupEntity> implements AttrGroupService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<AttrGroupEntity> page = this.page(
+                new Query<AttrGroupEntity>().getPage(params),
+                new QueryWrapper<AttrGroupEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

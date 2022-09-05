@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.Brand;
-import com.cloud.mall.product.mapper.BrandMapper;
-import com.cloud.mall.product.service.IBrandService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * 品牌 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements IBrandService {
+import com.cloud.mall.product.dao.BrandDao;
+import com.cloud.mall.product.entity.BrandEntity;
+import com.cloud.mall.product.service.BrandService;
+
+
+@Service("brandService")
+public class BrandServiceImpl extends ServiceImpl<BrandDao, BrandEntity> implements BrandService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<BrandEntity> page = this.page(
+                new Query<BrandEntity>().getPage(params),
+                new QueryWrapper<BrandEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

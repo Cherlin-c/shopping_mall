@@ -1,18 +1,84 @@
 package com.cloud.mall.product.controller;
 
+import java.util.Arrays;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cloud.mall.product.entity.SpuCommentEntity;
+import com.cloud.mall.product.service.SpuCommentService;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.R;
+
+
+
 /**
- * <p>
- * 商品评价 前端控制器
- * </p>
+ * 商品评价
  *
  * @author scl
- * @since 2022-09-04
+ * @email sclll
+ * @date 2022-09-05 21:37:20
  */
 @RestController
-@RequestMapping("/product/spu-comment")
+@RequestMapping("product/spucomment")
 public class SpuCommentController {
+    @Autowired
+    private SpuCommentService spuCommentService;
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/list")
+    public R list(@RequestParam Map<String, Object> params){
+        PageUtils page = spuCommentService.queryPage(params);
+
+        return R.ok().put("page", page);
+    }
+
+
+    /**
+     * 信息
+     */
+    @RequestMapping("/info/{id}")
+    public R info(@PathVariable("id") Long id){
+		SpuCommentEntity spuComment = spuCommentService.getById(id);
+
+        return R.ok().put("spuComment", spuComment);
+    }
+
+    /**
+     * 保存
+     */
+    @RequestMapping("/save")
+    public R save(@RequestBody SpuCommentEntity spuComment){
+		spuCommentService.save(spuComment);
+
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update")
+    public R update(@RequestBody SpuCommentEntity spuComment){
+		spuCommentService.updateById(spuComment);
+
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @RequestMapping("/delete")
+    public R delete(@RequestBody Long[] ids){
+		spuCommentService.removeByIds(Arrays.asList(ids));
+
+        return R.ok();
+    }
 
 }

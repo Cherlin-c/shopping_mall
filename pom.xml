@@ -16,7 +16,14 @@
         <module>product</module>
         <module>ware</module>
         <module>renren-fast</module>
+        <module>renren-generator</module>
         <module>common</module>
     </modules>
 
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 </project>

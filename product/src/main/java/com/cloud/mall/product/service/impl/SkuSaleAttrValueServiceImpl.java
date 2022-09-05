@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.SkuSaleAttrValue;
-import com.cloud.mall.product.mapper.SkuSaleAttrValueMapper;
-import com.cloud.mall.product.service.ISkuSaleAttrValueService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * sku销售属性&值 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueMapper, SkuSaleAttrValue> implements ISkuSaleAttrValueService {
+import com.cloud.mall.product.dao.SkuSaleAttrValueDao;
+import com.cloud.mall.product.entity.SkuSaleAttrValueEntity;
+import com.cloud.mall.product.service.SkuSaleAttrValueService;
+
+
+@Service("skuSaleAttrValueService")
+public class SkuSaleAttrValueServiceImpl extends ServiceImpl<SkuSaleAttrValueDao, SkuSaleAttrValueEntity> implements SkuSaleAttrValueService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<SkuSaleAttrValueEntity> page = this.page(
+                new Query<SkuSaleAttrValueEntity>().getPage(params),
+                new QueryWrapper<SkuSaleAttrValueEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

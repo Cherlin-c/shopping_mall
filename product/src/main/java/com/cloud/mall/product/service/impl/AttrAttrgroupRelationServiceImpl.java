@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.AttrAttrgroupRelation;
-import com.cloud.mall.product.mapper.AttrAttrgroupRelationMapper;
-import com.cloud.mall.product.service.IAttrAttrgroupRelationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * 属性&属性分组关联 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationMapper, AttrAttrgroupRelation> implements IAttrAttrgroupRelationService {
+import com.cloud.mall.product.dao.AttrAttrgroupRelationDao;
+import com.cloud.mall.product.entity.AttrAttrgroupRelationEntity;
+import com.cloud.mall.product.service.AttrAttrgroupRelationService;
+
+
+@Service("attrAttrgroupRelationService")
+public class AttrAttrgroupRelationServiceImpl extends ServiceImpl<AttrAttrgroupRelationDao, AttrAttrgroupRelationEntity> implements AttrAttrgroupRelationService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<AttrAttrgroupRelationEntity> page = this.page(
+                new Query<AttrAttrgroupRelationEntity>().getPage(params),
+                new QueryWrapper<AttrAttrgroupRelationEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

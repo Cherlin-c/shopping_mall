@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.Category;
-import com.cloud.mall.product.mapper.CategoryMapper;
-import com.cloud.mall.product.service.ICategoryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * 商品三级分类 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> implements ICategoryService {
+import com.cloud.mall.product.dao.CategoryDao;
+import com.cloud.mall.product.entity.CategoryEntity;
+import com.cloud.mall.product.service.CategoryService;
+
+
+@Service("categoryService")
+public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<CategoryEntity> page = this.page(
+                new Query<CategoryEntity>().getPage(params),
+                new QueryWrapper<CategoryEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }

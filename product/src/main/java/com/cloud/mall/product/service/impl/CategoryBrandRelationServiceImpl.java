@@ -1,20 +1,29 @@
 package com.cloud.mall.product.service.impl;
 
-import com.cloud.mall.product.entity.CategoryBrandRelation;
-import com.cloud.mall.product.mapper.CategoryBrandRelationMapper;
-import com.cloud.mall.product.service.ICategoryBrandRelationService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import java.util.Map;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.cloud.mall.common.utils.PageUtils;
+import com.cloud.mall.common.utils.Query;
 
-/**
- * <p>
- * 品牌分类关联 服务实现类
- * </p>
- *
- * @author scl
- * @since 2022-09-04
- */
-@Service
-public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationMapper, CategoryBrandRelation> implements ICategoryBrandRelationService {
+import com.cloud.mall.product.dao.CategoryBrandRelationDao;
+import com.cloud.mall.product.entity.CategoryBrandRelationEntity;
+import com.cloud.mall.product.service.CategoryBrandRelationService;
+
+
+@Service("categoryBrandRelationService")
+public class CategoryBrandRelationServiceImpl extends ServiceImpl<CategoryBrandRelationDao, CategoryBrandRelationEntity> implements CategoryBrandRelationService {
+
+    @Override
+    public PageUtils queryPage(Map<String, Object> params) {
+        IPage<CategoryBrandRelationEntity> page = this.page(
+                new Query<CategoryBrandRelationEntity>().getPage(params),
+                new QueryWrapper<CategoryBrandRelationEntity>()
+        );
+
+        return new PageUtils(page);
+    }
 
 }
