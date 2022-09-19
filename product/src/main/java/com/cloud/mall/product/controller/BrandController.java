@@ -34,6 +34,14 @@ public class BrandController {
      * 列表
      */
     @RequestMapping("/list")
+    public R list(){
+        return R.ok().put("list", brandService.list());
+    }
+
+    /**
+     * 列表
+     */
+    @RequestMapping("/list1")
     public R list(@RequestParam Map<String, Object> params){
         PageUtils page = brandService.queryPage(params);
 
