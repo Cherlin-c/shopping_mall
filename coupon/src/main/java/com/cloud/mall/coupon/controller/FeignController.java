@@ -3,6 +3,7 @@ package com.cloud.mall.coupon.controller;
 import com.cloud.mall.common.utils.PageUtils;
 import com.cloud.mall.common.utils.R;
 import com.cloud.mall.coupon.feign.ProductFeignService;
+import com.cloud.mall.coupon.feign.WareFeignService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class FeignController {
     @Autowired
     private ProductFeignService productFeignService;
+    @Autowired
+    private WareFeignService wareFeignService;
 
     /**
      * 列表
@@ -28,5 +31,13 @@ public class FeignController {
         return R.ok().put("page", page);
     }
 
+    /**
+     * 优惠库存信息
+     */
+    @RequestMapping("/ware/wareinfo/info")
+    public R listWareInfo() {
+        R page = wareFeignService.listWareInfo(1L);
+        return R.ok().put("page", page);
+    }
 
 }
