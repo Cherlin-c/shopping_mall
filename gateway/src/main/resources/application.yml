@@ -6,6 +6,12 @@ spring:
           uri: https://www.baidu.com
           predicates:
             - Query=url,baidu
+        - id: third_route
+          uri: lb://cloud-third
+          predicates:
+            - Path=/api/third/**
+          filters:
+            - RewritePath=/api/third/(?<segment>.*), /third/$\{segment}
         - id: product_route
           uri: lb://cloud-product
           predicates:
