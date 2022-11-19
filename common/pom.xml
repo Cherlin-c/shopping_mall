@@ -85,6 +85,11 @@
             <version>2.6</version>
         </dependency>
         <!--        临时end      -->
+        <!--不然@valid不起效-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
