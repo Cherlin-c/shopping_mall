@@ -9,6 +9,7 @@
 package com.cloud.mall.common.xss;
 
 import com.cloud.mall.common.exception.RRException;
+import com.cloud.mall.common.utils.R;
 import org.apache.commons.lang.StringUtils;
 
 /**
@@ -41,7 +42,7 @@ public class SQLFilter {
         //判断是否包含非法字符
         for (String keyword : keywords) {
             if (str.indexOf(keyword) != -1) {
-                throw new RRException("包含非法字符");
+                throw new SecurityException();
             }
         }
 
