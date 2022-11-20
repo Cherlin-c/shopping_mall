@@ -15,8 +15,7 @@ package com.cloud.mall.common.exception;
  */
 public enum RRException {
 	UNKNOW_EXCEPTION(10000,"系统未知异常"),
-	VAILD_EXCEPTION(10001,"参数格式校验失败"),
-	ILLEGAL_CHARACTERS(10002,"包含非法字符");
+	VAILD_EXCEPTION(10001,"参数格式校验失败");
 
     private String msg;
     private int code;
