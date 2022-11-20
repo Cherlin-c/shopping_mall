@@ -13,32 +13,17 @@ package com.cloud.mall.common.exception;
  *
  * @author Mark sunlightcs@gmail.com
  */
-public class RRException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
-	
+public enum RRException {
+	UNKNOW_EXCEPTION(10000,"系统未知异常"),
+	VAILD_EXCEPTION(10001,"参数格式校验失败"),
+	ILLEGAL_CHARACTERS(10002,"包含非法字符");
+
     private String msg;
-    private int code = 500;
-    
-    public RRException(String msg) {
-		super(msg);
-		this.msg = msg;
-	}
-	
-	public RRException(String msg, Throwable e) {
-		super(msg, e);
-		this.msg = msg;
-	}
-	
-	public RRException(String msg, int code) {
-		super(msg);
-		this.msg = msg;
+    private int code;
+
+    RRException(int code, String msg) {
 		this.code = code;
-	}
-	
-	public RRException(String msg, int code, Throwable e) {
-		super(msg, e);
 		this.msg = msg;
-		this.code = code;
 	}
 
 	public String getMsg() {
