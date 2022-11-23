@@ -3,12 +3,13 @@
 ---
 
 任务:
+
 1. 完成视频观看59-69
 2. 完成品牌管理前后端表单校验, 将前端排序字段的增，改页面改成计数器组件
 3. 完成后端统一异常处理
 
-
 备注：
+
 - 对象存储使用的FastDFS,可直接食用
-  - 后端需要自己下载maven包
-    https://blog.csdn.net/Baiguoguo/article/details/121022718
+    - 后端需要自己下载maven包
+      https://blog.csdn.net/Baiguoguo/article/details/121022718

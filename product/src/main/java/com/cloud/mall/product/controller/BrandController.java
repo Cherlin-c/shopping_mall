@@ -8,13 +8,10 @@ import com.cloud.mall.common.valid.UpdateStatusGroup;
 import com.cloud.mall.product.entity.BrandEntity;
 import com.cloud.mall.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
 
 
@@ -30,14 +27,6 @@ import java.util.Map;
 public class BrandController {
     @Autowired
     private BrandService brandService;
-
-    /**
-     * 列表
-     */
-    @RequestMapping("/list1")
-    public R list() {
-        return R.ok().put("list", brandService.list());
-    }
 
     /**
      * 列表

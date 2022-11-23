@@ -3,6 +3,7 @@ package com.cloud.mall.product.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cloud.mall.common.utils.PageUtils;
 import com.cloud.mall.product.entity.AttrEntity;
+import com.cloud.mall.product.vo.AttrVO;
 
 import java.util.Map;
 
@@ -16,5 +17,9 @@ import java.util.Map;
 public interface AttrService extends IService<AttrEntity> {
 
     PageUtils queryPage(Map<String, Object> params);
+
+    PageUtils queryPage(Long catelogId, Map<String, Object> params);
+
+    void saveAttr(AttrVO attr);
 }
 

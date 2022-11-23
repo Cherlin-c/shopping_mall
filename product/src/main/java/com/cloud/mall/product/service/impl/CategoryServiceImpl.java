@@ -6,6 +6,7 @@ import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeNodeConfig;
 import cn.hutool.core.lang.tree.TreeUtil;
 import cn.hutool.core.lang.tree.parser.DefaultNodeParser;
+import cn.hutool.core.util.ArrayUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,6 +17,7 @@ import com.cloud.mall.product.entity.CategoryEntity;
 import com.cloud.mall.product.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,6 +63,20 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
     public void removeMenuByIds(List<Long> asList) {
         //TODO 1.检查当前删除的菜单,是否被别的地方引用
         baseMapper.deleteBatchIds(asList);
+    }
+
+    @Override
+    public Long[] getFullPath(Long catelogId) {
+        ArrayList<Long> path = new ArrayList<>();
+        findFullPath(catelogId,path);
+        return ArrayUtil.toArray(CollUtil.reverse(path),Long.class);
+    }
+    private void findFullPath(Long catelogId,ArrayList<Long> path){
+        path.add(catelogId);
+        CategoryEntity categoryEntity = this.getById(catelogId);
+        if (categoryEntity.getParentCid()!=0){
+            findFullPath(categoryEntity.getParentCid(),path);
+        }
     }
 
 }
