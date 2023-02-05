@@ -1,9 +1,13 @@
 package com.cloud.mall.product.controller;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
+import com.cloud.mall.product.entity.AttrEntity;
+import com.cloud.mall.product.service.AttrService;
 import com.cloud.mall.product.service.CategoryService;
+import com.cloud.mall.product.vo.AttrGroupRelationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +32,14 @@ public class AttrGroupController {
     private AttrGroupService attrGroupService;
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    AttrService attrService;
 
+    @GetMapping("/{attrgroupId}/attr/relation")
+    public R attrRelation(@PathVariable("attrgroupId") Long attrgroupId){
+        List<AttrEntity> entites = attrService.getRelationAttr(attrgroupId);
+        return R.ok().put("data",entites);
+    }
     /**
      * 列表
      */
@@ -82,6 +93,11 @@ public class AttrGroupController {
         return R.ok();
     }
 
+    @PostMapping("/attr/relation/delete")
+    public R deleteRelation(@RequestBody AttrGroupRelationVO[] vos){
+        attrService.deleteRelation(vos);
+        return R.ok();
+    }
     /**
      * 删除
      */
