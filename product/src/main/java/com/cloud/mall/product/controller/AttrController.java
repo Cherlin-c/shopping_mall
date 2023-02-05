@@ -4,6 +4,7 @@ import com.cloud.mall.common.utils.PageUtils;
 import com.cloud.mall.common.utils.R;
 import com.cloud.mall.product.entity.AttrEntity;
 import com.cloud.mall.product.service.AttrService;
+import com.cloud.mall.product.vo.AttrRespVO;
 import com.cloud.mall.product.vo.AttrVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -51,9 +52,9 @@ public class AttrController {
      */
     @RequestMapping("/info/{attrId}")
     public R info(@PathVariable("attrId") Long attrId) {
-        AttrEntity attr = attrService.getById(attrId);
-
-        return R.ok().put("attr", attr);
+//        AttrEntity attr = attrService.getById(attrId);
+        AttrRespVO respVO = attrService.getAttrInfo(attrId);
+        return R.ok().put("attr", respVO);
     }
 
     /**
@@ -70,8 +71,8 @@ public class AttrController {
      * 修改
      */
     @RequestMapping("/update")
-    public R update(@RequestBody AttrEntity attr) {
-        attrService.updateById(attr);
+    public R update(@RequestBody AttrVO attr) {
+        attrService.updateAttr(attr);
 
         return R.ok();
     }

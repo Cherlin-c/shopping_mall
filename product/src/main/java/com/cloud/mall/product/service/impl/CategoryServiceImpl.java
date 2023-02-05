@@ -14,7 +14,9 @@ import com.cloud.mall.common.utils.PageUtils;
 import com.cloud.mall.common.utils.Query;
 import com.cloud.mall.product.dao.CategoryDao;
 import com.cloud.mall.product.entity.CategoryEntity;
+import com.cloud.mall.product.service.CategoryBrandRelationService;
 import com.cloud.mall.product.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,6 +27,8 @@ import java.util.Map;
 
 @Service("categoryService")
 public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity> implements CategoryService {
+    @Autowired
+    CategoryBrandRelationService categoryBrandRelationService;
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
@@ -71,6 +75,17 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryDao, CategoryEntity
         findFullPath(catelogId,path);
         return ArrayUtil.toArray(CollUtil.reverse(path),Long.class);
     }
+
+    /**
+     * 级联更新所有关联的数据
+     * @param category
+     */
+    @Override
+    public void updateCascade(CategoryEntity category) {
+        this.updateById(category);
+        categoryBrandRelationService.updateCategory(category.getCatId(),category.getName());
+    }
+
     private void findFullPath(Long catelogId,ArrayList<Long> path){
         path.add(catelogId);
         CategoryEntity categoryEntity = this.getById(catelogId);
